@@ -20,16 +20,12 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(
-        injects = {QiitaApiV1.class, QiitaApiV2.class},
-        complete = false,
-        library = true
-)
+@Module
 public class WebModule {
 
-    @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(Application app) {
+    @Provides
+    public OkHttpClient provideOkHttpClient(Application app) {
         final int size = ResUtils.getInteger(app, R.integer.http_disk_cache_size);
 
         final OkHttpClient client = new OkHttpClient();
@@ -40,9 +36,9 @@ public class WebModule {
         return client;
     }
 
-    @Provides
     @Singleton
-    Gson provideGson() {
+    @Provides
+    public Gson provideGson() {
         return new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
